@@ -49,6 +49,9 @@ namespace UnityEngine.XR.iOS
 			editorConnection.Register (ConnectionMessageIds.screenCaptureYMsgId, ReceiveRemoteScreenYTex);
 			editorConnection.Register (ConnectionMessageIds.screenCaptureUVMsgId, ReceiveRemoteScreenUVTex);
 
+			if (currentPlayerID != -1) {
+				SendInitToPlayer ();
+			}
 		}
 
 		void PlayerConnected(int playerID)
