@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Damages;
 using UnityEngine;
+using UnityEngine.Networking;
 
 namespace Missiles
 {
@@ -15,8 +16,11 @@ namespace Missiles
         {
             foreach (var target in targets)
             {
-                var bullet = Instantiate(_bulletPrefab, launchPad.position, launchPad.rotation * _bulletRotation).GetComponent<IMissile>();
-                bullet.Launch(target);
+                var go = Instantiate(_bulletPrefab, launchPad.position, launchPad.rotation * _bulletRotation);
+                NetworkServer.Spawn(go);
+
+                var missile = go.GetComponent<IMissile>();
+                missile.Launch(target);
             }
         }
     }

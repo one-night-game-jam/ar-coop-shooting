@@ -3,12 +3,13 @@ using System.Linq;
 using Damages;
 using UniRx;
 using UnityEngine;
+using UnityEngine.Networking;
 using UnityEngine.XR.iOS;
 using Zenject;
 
 namespace Enemies
 {
-    public class EnemySpawner : MonoBehaviour
+    public class EnemySpawner : NetworkBehaviour
     {
         [SerializeField] private EnemyCore enemyPrefab;
 
@@ -53,6 +54,7 @@ namespace Enemies
         private void SpawnEnemy(Vector3 position, Quaternion rotation)
         {
             var enemy = Instantiate(enemyPrefab);
+            NetworkServer.Spawn(enemy.gameObject);
             enemy.transform.SetPositionAndRotation(position, rotation);
             _spawnedEnemySubject.OnNext(enemy);
         }
