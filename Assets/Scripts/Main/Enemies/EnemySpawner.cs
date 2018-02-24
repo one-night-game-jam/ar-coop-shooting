@@ -11,6 +11,8 @@ namespace Enemies
     {
         [SerializeField] private GameObject enemyPrefab;
 
+        private readonly ISubject<GameObject> _spawnedEnemySubject = new Subject<GameObject>();
+
         private ARPlaneGenerator planeGenerator;
 
         [Inject]
@@ -30,6 +32,11 @@ namespace Enemies
                 .AddTo(this);
         }
 
+        public IObservable<GameObject> SpawnedEnemyAsObservable()
+        {
+            return _spawnedEnemySubject;
+        }
+
         private IObservable<long> SpawnTimerAsObservable()
         {
             return Observable.Interval(TimeSpan.FromSeconds(3));
@@ -46,7 +53,7 @@ namespace Enemies
         {
             var enemy = Instantiate(enemyPrefab);
             enemy.transform.SetPositionAndRotation(position, rotation);
-            //return enemy;
+            _spawnedEnemySubject.OnNext(enemy);
         }
     }
 }

@@ -342,8 +342,9 @@ GameObject:
   m_Component:
   - component: {fileID: 767924044}
   - component: {fileID: 767924043}
+  - component: {fileID: 767924045}
   m_Layer: 0
-  m_Name: EnemySpawner
+  m_Name: EnemiesManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -375,6 +376,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &767924045
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 767924042}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 170aaff35c3f94ffe8c97aa2e4fb2098, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawner: {fileID: 767924043}
 --- !u!1 &1121666029
 GameObject:
   m_ObjectHideFlags: 0
