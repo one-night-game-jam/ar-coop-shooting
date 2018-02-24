@@ -422,7 +422,7 @@ Rigidbody:
   m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!114 &114216780585872162
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -437,6 +437,7 @@ MonoBehaviour:
   lifetimeSeconds: 8
   speed: 0.5
   rotationSpeed: 2
+  _rigidbody: {fileID: 54751071067989858}
   _damageApplier: {fileID: 114713828395815998}
 --- !u!114 &114713828395815998
 MonoBehaviour:

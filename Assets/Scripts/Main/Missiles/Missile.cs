@@ -11,6 +11,7 @@ namespace Missiles
         [SerializeField] private float lifetimeSeconds;
         [SerializeField] private float speed;
         [SerializeField] private float rotationSpeed;
+        [SerializeField] private Rigidbody _rigidbody;
 
         [SerializeField] private DamageApplier _damageApplier;
 
@@ -19,7 +20,6 @@ namespace Missiles
         public void Launch(IDamageApplicable target)
         {
             this.UpdateAsObservable()
-                .TakeUntilDestroy(target.Transform)
                 .TakeUntil(_destroyAsObservable)
                 .Subscribe(_ => UpdatePosition(target.Transform),
                     () => _destroyAsObservable.OnNext(Unit.Default))
@@ -41,9 +41,12 @@ namespace Missiles
 
         private void UpdatePosition(Transform target)
         {
-            var position = transform.position + transform.forward * speed * Time.deltaTime;
-            var rotation = Quaternion.Slerp (transform.rotation, Quaternion.LookRotation (target.position - transform.position), rotationSpeed * Time.deltaTime);
-            transform.SetPositionAndRotation(position, rotation);
+            if (target != null)
+            {
+                _rigidbody.rotation = Quaternion.Slerp (_rigidbody.rotation, Quaternion.LookRotation (target.position - _rigidbody.position), rotationSpeed * Time.deltaTime);
+            }
+
+            _rigidbody.position = _rigidbody.position + transform.forward * speed * Time.deltaTime;
         }
     }
 }
