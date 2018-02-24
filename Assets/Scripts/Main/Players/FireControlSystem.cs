@@ -33,6 +33,7 @@ namespace Players
         {
             if (Input.GetMouseButtonUp(0))
             {
+
                 Launch();
                 if (_coolDownTimeLastSeconds.Value <= 0)
                 {
@@ -69,6 +70,7 @@ namespace Players
         private void Launch()
         {
             _launcher.Launch(_lockon.Keys);
+            _lockon.Clear();
         }
     }
 }

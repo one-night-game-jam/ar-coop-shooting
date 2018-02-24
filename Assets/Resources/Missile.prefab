@@ -434,6 +434,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30f42518c320d4cdaae0d2c9b642143b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lifetimeSeconds: 8
+  speed: 0.5
+  rotationSpeed: 2
+  _damageApplier: {fileID: 114713828395815998}
 --- !u!114 &114713828395815998
 MonoBehaviour:
   m_ObjectHideFlags: 1
