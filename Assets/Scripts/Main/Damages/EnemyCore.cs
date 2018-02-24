@@ -4,6 +4,6 @@ namespace Damages
 {
     public class EnemyCore : MonoBehaviour, IDamageApplicable
     {
-        public Vector3 Position => transform.position;
+        public Transform Transform => transform;
     }
 }

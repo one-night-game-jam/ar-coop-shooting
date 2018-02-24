@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Missiles;
 using Damages;
 using Enemies;
 using UniRx;
@@ -12,7 +13,7 @@ namespace Players
     public class FireControlSystem : MonoBehaviour
     {
         [SerializeField] private Camera _camera;
-
+        [SerializeField] private Launcher _launcher;
         [SerializeField] private float _coolDownTimeSeconds;
 
         private EnemyPooler _enemyPooler;
@@ -32,7 +33,7 @@ namespace Players
         {
             if (Input.GetMouseButtonUp(0))
             {
-                Fire();
+                Launch();
                 if (_coolDownTimeLastSeconds.Value <= 0)
                 {
                     _coolDownTimeLastSeconds.Value = _coolDownTimeSeconds;
@@ -55,18 +56,19 @@ namespace Players
         {
             if (_enemyPooler == null) return;
             var visibles = _enemyPooler.DamageApplicables()
-                .Select(x => Tuple.Create(x, _camera.WorldToScreenPoint(x.Position)))
+                .Select(x => Tuple.Create(x, _camera.WorldToScreenPoint(x.Transform.position)))
                 .Where(x => 0 < x.Item2.x && x.Item2.x < _camera.pixelWidth && 0 < x.Item2.y && x.Item2.y < _camera.pixelHeight);
-            _lockon = visibles.ToDictionary(x => x.Item1, _ => Time.deltaTime).Concat(_lockon)
+            _lockon = visibles.ToDictionary(x => x.Item1, _ => Time.deltaTime).Concat(_lockon.Where(x => x.Key != null))
                 .ToLookup(x => x.Key, x => x.Value)
                 .ToDictionary(x => x.Key, x => x.Sum());
+
 
             _aimingScreenPositionSubject.OnNext(visibles.Select(t => t.Item2));
         }
 
-        private void Fire()
+        private void Launch()
         {
-
+            _launcher.Launch(_lockon.Keys);
         }
     }
 }
