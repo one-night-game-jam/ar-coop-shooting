@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using Damages;
 using UniRx;
 using UnityEngine;
 using UnityEngine.XR.iOS;
@@ -9,9 +10,9 @@ namespace Enemies
 {
     public class EnemySpawner : MonoBehaviour
     {
-        [SerializeField] private GameObject enemyPrefab;
+        [SerializeField] private EnemyCore enemyPrefab;
 
-        private readonly ISubject<GameObject> _spawnedEnemySubject = new Subject<GameObject>();
+        private readonly ISubject<EnemyCore> _spawnedEnemySubject = new Subject<EnemyCore>();
 
         private ARPlaneGenerator planeGenerator;
 
@@ -32,7 +33,7 @@ namespace Enemies
                 .AddTo(this);
         }
 
-        public IObservable<GameObject> SpawnedEnemyAsObservable()
+        public IObservable<EnemyCore> SpawnedEnemyAsObservable()
         {
             return _spawnedEnemySubject;
         }

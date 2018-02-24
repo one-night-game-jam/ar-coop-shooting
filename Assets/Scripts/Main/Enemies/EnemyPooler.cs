@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Damages;
 using UniRx;
 using UniRx.Triggers;
 using UnityEngine;
@@ -10,7 +11,7 @@ namespace Enemies
     {
         [SerializeField] private EnemySpawner spawner;
 
-        private readonly ReactiveCollection<GameObject> enemies = new ReactiveCollection<GameObject>();
+        private readonly IList<EnemyCore> enemies = new List<EnemyCore>();
 
         void Start()
         {
@@ -20,12 +21,12 @@ namespace Enemies
                 .AddTo(this);
         }
 
-        private void AddEnemy(GameObject enemy)
+        private void AddEnemy(EnemyCore enemy)
         {
             enemies.Add(enemy);
         }
 
-        public IEnumerable<GameObject> Enemies()
+        public IEnumerable<IDamageApplicable> DamageApplicables()
         {
             return enemies.Where(x => x != null);
         }
