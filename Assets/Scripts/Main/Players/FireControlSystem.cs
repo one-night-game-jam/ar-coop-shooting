@@ -31,26 +31,21 @@ namespace Players
 
         void Update()
         {
-            if (Input.GetMouseButtonUp(0))
-            {
+            _coolDownTimeLastSeconds.Value -= Time.deltaTime;
 
-                Launch();
-                if (_coolDownTimeLastSeconds.Value <= 0)
+            if (_coolDownTimeLastSeconds.Value <= 0)
+            {
+                if (Input.GetMouseButtonUp(0))
                 {
+                    Launch();
                     _coolDownTimeLastSeconds.Value = _coolDownTimeSeconds;
                 }
-            }
-            else if (Input.GetMouseButton(0))
-            {
-                if (0 < _coolDownTimeLastSeconds.Value)
-                {
-                    _coolDownTimeLastSeconds.Value -= Time.deltaTime;
-                }
-                else
+                else if (Input.GetMouseButton(0))
                 {
                     Lockon();
                 }
             }
+
         }
 
         private void Lockon()
