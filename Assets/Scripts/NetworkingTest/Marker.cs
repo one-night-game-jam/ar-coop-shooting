@@ -18,8 +18,7 @@ namespace NetworkingTest
                     Toggle();
                     if (!_image.enabled) return;
 
-                    var newWorldOrigin = new GameObject().transform;
-                    UnityARSessionNativeInterface.GetARSessionNativeInterface().SetWorldOrigin(newWorldOrigin);
+                    UnityARSessionNativeInterface.GetARSessionNativeInterface().SetWorldOrigin(Camera.main.transform);
                 })
                 .AddTo(this);
         }
